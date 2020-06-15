@@ -1,4 +1,4 @@
-import Loadable from '../components/Loadable'
+import { Loadable } from '@@'
 
 const LayoutPage = Loadable(() => import('@@/LayoutPage'))
 const Home = Loadable(() => import('@/pages/home'))

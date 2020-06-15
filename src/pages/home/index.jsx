@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Button, Tag, Space, message } from 'antd'
 import { connect } from 'react-redux'
-import InputModel from '@@/InputModel'
+import { InputModel } from '@@'
 import {
   getTag,
   getRowKeys,
