@@ -77,14 +77,13 @@ function Home(props) {
     getList()
   }, [])
   // 删除
-  function delFn(record) {
+  async function delFn(record) {
     let obj = { id: record.id }
-    props.delList(obj).then((res) => {
-      message.info(res.payload.info)
-      if (res.payload.status === '200') {
-        getList()
-      }
-    })
+    const del = await props.delList(obj)
+    message.info(del.payload.info)
+    if (del.payload.status === '200') {
+      getList()
+    }
   }
   // 修改
   const updateFn = (record) => {
@@ -100,26 +99,23 @@ function Home(props) {
   const showModal = () => {
     setVisible(!visible)
   }
-  // 确定表单
-  const onFinish = (values) => {
+  // 确定表单  添加 / 编辑
+  async function onFinish(values) {
     if (title === '添加') {
-      addList(values).then((res) => {
-        message.info(res.payload.info)
-        if (res.payload.status === '200') {
-          getList()
-        }
-        setVisible(false)
-      })
+      const add = await addList(values)
+      message.info(add.payload.info)
+      if (add.payload.status === '200') {
+        getList()
+      }
     } else {
       let obj = { ...values, id: fields.id }
-      updateList(obj).then((res) => {
-        message.info(res.payload.message)
-        if (res.payload.status === '200') {
-          getList()
-        }
-        setVisible(false)
-      })
+      const upd = await updateList(obj)
+      message.info(upd.payload.message)
+      if (upd.payload.status === '200') {
+        getList()
+      }
     }
+    setVisible(false)
   }
   const onFinishFailed = (errorInfo) => {
     setVisible(false)
